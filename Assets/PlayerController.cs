@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float jumpForce = 200f;
     private Rigidbody2D rb; 
     private bool isGrounded; 
+
+    private int score; 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
@@ -40,6 +42,17 @@ public class PlayerController : MonoBehaviour
         movementY = v.y; 
 
         Debug.Log($"MovementX: {movementX}, MovementY: {movementY}");
+    }
+
+    private void OnTriggerEnter2D (Collider2D collision)
+    {
+        if(collision.gameObject.CompareTag("Coin"))
+        {
+            score++;
+            // Destroy(collision.gameObject);
+            collision.gameObject.SetActive(false);
+            Debug.Log(score);
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
